@@ -66,12 +66,12 @@ type newsService struct {
 
 func (s *newsService) Get() (Sock, error) {
 	var socks []Sock
-	query := "SELECT sock.sock_id AS id, sock.name, sock.description, sock.price, sock.count, sock.image_url_1, sock.image_url_2, GROUP_CONCAT(tag.name) AS tag_name FROM sock JOIN sock_tag ON sock.sock_id=sock_tag.sock_id JOIN tag ON sock_tag.tag_id=tag.tag_id;"
+	query := "SELECT sock.sock_id AS id, sock.name, sock.description, sock.price, sock.count, sock.image_url_1, sock.image_url_2, GROUP_CONCAT(tag.name) AS tag_name FROM sock JOIN sock_tag ON sock.sock_id=sock_tag.sock_id JOIN tag ON sock_tag.tag_id=tag.tag_id GROUP BY id;"
 
 	err := s.db.Select(&socks, query)
 	if err != nil {
 		s.logger.Log("database error", err)
-		return Sock{}, ErrDBConnection
+		return Sock{}, err
 	}
 	for i, s := range socks {
 		socks[i].ImageURL = []string{s.ImageURL_1, s.ImageURL_2}

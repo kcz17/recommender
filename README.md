@@ -23,7 +23,7 @@ The result is a binary named `recommender`, in the current directory.
 
 #### Go native
 
-If you followed to Go build instructions, you should have a "recommender" binary in $GOPATH/src/github.com/kcz17/recommender/cmd/newssvc/.
+If you followed to Go build instructions, you should have a "recommender" binary in $GOPATH/src/github.com/kcz17/recommender/cmd/recommendersvc/.
 To run it use:
 ```
 ./recommender --port 8080

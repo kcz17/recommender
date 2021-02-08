@@ -4,7 +4,6 @@ services:
     recommender:
         build:
             context: .
-            dockerfile: ./docker/recommender/Dockerfile
         image: kcz17/recommender
         hostname: recommender
         restart: always
@@ -17,14 +16,3 @@ services:
             - reschedule=on-node-failure
         ports:
             - "8080:80"
-    recommender-db:
-        build:
-            context: ./docker/recommender-db/
-        image: kcz17/recommender-db
-        hostname: recommender-db
-        restart: always
-        environment:
-            - reschedule=on-node-failure
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - MYSQL_ALLOW_EMPTY_PASSWORD=true
-            - MYSQL_DATABASE=socksdb

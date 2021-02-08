@@ -4,7 +4,7 @@ COPY . /go/src/github.com/kcz17/recommender/v2
 WORKDIR /go/src/github.com/kcz17/recommender/v2
 
 RUN go mod download && \
-    CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app github.com/kcz17/recommender/v2/cmd/newssvc
+    CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app github.com/kcz17/recommender/v2/cmd/recommendersvc
 
 FROM alpine:3.4
 
