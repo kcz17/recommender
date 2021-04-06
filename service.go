@@ -5,7 +5,10 @@ package recommender
 
 import (
 	"errors"
+	randexp "golang.org/x/exp/rand"
+	"gonum.org/v1/gonum/stat/distuv"
 	"math/rand"
+
 	"strings"
 	"time"
 
@@ -76,6 +79,17 @@ func (s *newsService) Get() (Sock, error) {
 	for i, s := range socks {
 		socks[i].ImageURL = []string{s.ImageURL_1, s.ImageURL_2}
 		socks[i].Tags = strings.Split(s.TagString, ",")
+	}
+
+	// Set the random seed to the current time for sufficient uniqueness.
+	randSeed := uint64(time.Now().UTC().UnixNano())
+	delay := distuv.Normal{
+		Mu:    2,
+		Sigma: 2,
+		Src:   randexp.NewSource(randSeed),
+	}.Rand()
+	if delay > 0 {
+		time.Sleep(time.Duration(delay) * time.Second)
 	}
 
 	if len(socks) > 0 {
